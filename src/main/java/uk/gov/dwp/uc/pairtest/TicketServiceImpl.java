@@ -25,13 +25,13 @@ public class TicketServiceImpl implements TicketService {
             HashMap  ticketCountDetails=validatePurchaseRequest(ticketPurchaseRequest);
             int totalSeatsToAllocate = calSeatCount(ticketCountDetails);
             int paymentAmount=calculatePaymentAmount(ticketCountDetails);
-            System.out.println("Ticket Info \n-----------------------------------------------");
-            System.out.println("" +TicketRequest.Type.ADULT +" : "+ticketCountDetails.get(TicketRequest.Type.ADULT) +"\n"+TicketRequest.Type.CHILD +" : "+ticketCountDetails.get(TicketRequest.Type.CHILD)+"\n"+TicketRequest.Type.INFANT +" : "+ticketCountDetails.get(TicketRequest.Type.INFANT));
-            System.out.println("-----------------------------------------------");
+            System.out.println("Ticket Info                Per Ticket Price\n----------\t\t\t\t   -------------------");
+            System.out.println("" +TicketRequest.Type.ADULT +" : "+ticketCountDetails.get(TicketRequest.Type.ADULT) +"                  ADULT : £20\n"+TicketRequest.Type.CHILD +" : "+ticketCountDetails.get(TicketRequest.Type.CHILD)+"                 CHILD : £10\n"+TicketRequest.Type.INFANT +" : "+ticketCountDetails.get(TicketRequest.Type.INFANT)+"                 INFANT : £0");
+            System.out.println("----------\t\t\t\t   --------------------");
             System.out.println("Payment amount "+paymentAmount);
             TicketPaymentServiceImpl.makePayment(ticketPurchaseRequest.getAccountId(),paymentAmount);
             seatReservationService.reserveSeat(ticketPurchaseRequest.getAccountId(),totalSeatsToAllocate);
-            System.out.println("Seats allocated " + totalSeatsToAllocate);
+            System.out.println("\nSeats allocated " + totalSeatsToAllocate);
         }
         catch (InvalidPurchaseException invalidRequestException)
         {

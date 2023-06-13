@@ -1,15 +1,16 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import uk.gov.dwp.uc.pairtest.TicketServiceImpl;
 import uk.gov.dwp.uc.pairtest.domain.TicketPurchaseRequest;
 import uk.gov.dwp.uc.pairtest.domain.TicketRequest;
 import uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 public class TestTicketPurchase {
-    TicketServiceImpl TicketServiceImpl=new TicketServiceImpl();
+    @Mock
     TicketServiceImpl mock = mock(TicketServiceImpl.class);
     @Test
     public void validPurchase()
@@ -56,6 +57,8 @@ public class TestTicketPurchase {
     {
         TicketRequest[] ticketRequest = new TicketRequest[]{};
         TicketPurchaseRequest  ticketPurchaseRequest= TicketPurchaseRequest.getTicketPurchaseRequestObj(11,ticketRequest);
-        TicketServiceImpl.purchaseTickets(ticketPurchaseRequest);
+        doCallRealMethod().when(mock).purchaseTickets(any(TicketPurchaseRequest.class));
+        mock.purchaseTickets(ticketPurchaseRequest);
+        verify(mock, times(1)).purchaseTickets(ticketPurchaseRequest);
     }
 }
