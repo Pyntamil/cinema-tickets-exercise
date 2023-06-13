@@ -35,7 +35,8 @@ public class TicketServiceImpl implements TicketService {
         }
         catch (InvalidPurchaseException invalidRequestException)
         {
-            System.out.println( invalidRequestException.getMessage());
+            //System.out.println( invalidRequestException.getMessage());
+            throw  new InvalidPurchaseException(invalidRequestException.getMessage());
         }
 
     }
